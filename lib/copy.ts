@@ -75,5 +75,6 @@ export const footerResources = ["Blog", "Help Center", "Guides", "Case Studies"]
 
 export const demoFormBullets = [
   { text: "Personalized Demo", icon: "/images/icons/people.svg" },
-  { text: "From Inquiry to Closing", icon: "/images/icons/demo-bullet-globe.svg" },
+  { text: "Global Reach", icon: "/images/icons/demo-bullet-globe.svg" },
+  { text: "From Inquiry to Closing", icon: "/images/icons/people.svg" },
 ] as const;

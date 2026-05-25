@@ -1,269 +1,309 @@
-"use client";
+'use client';
 
-import { ButtonPrimary } from "@/components/ui/Button";
-import { DEVELOPER_LOGIN_URL, demoFormBullets } from "@/lib/copy";
-import { useEffect, useState } from "react";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { ButtonPrimary } from '@/components/ui/Button';
+import { DEVELOPER_LOGIN_URL, demoFormBullets } from '@/lib/copy';
+import Link from 'next/link';
+import { ArrowRight, ChevronRight, X } from 'lucide-react';
 
-type DemoTime = "this-week" | "next-week" | "suggest";
+type DemoTime = 'this-week' | 'next-week' | 'suggest';
 
 type BookDemoModalProps = {
-  open: boolean;
-  onClose: () => void;
+	onClose: () => void;
 };
 
 const inputClass =
-  "flex h-10 w-full items-center rounded-[5px] border border-black/20 bg-white px-2.5 text-[14px] text-grey-800 placeholder:text-grey-700 outline-none focus:border-secondary";
+	'h-[40px] w-full rounded-lg border border-black/15 bg-white px-4 text-sm outline-none transition-all placeholder:text-neutral-400 focus:border-secondary focus:ring-4 focus:ring-secondary/10';
 
-const labelClass = "mb-2 block text-[16px] font-medium leading-5 text-grey-800";
+const labelClass = 'mb-2 block text-sm font-medium text-neutral-800';
 
-export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
-  const [demoTime, setDemoTime] = useState<DemoTime>("this-week");
-  const [message, setMessage] = useState("");
+export function BookDemoModal({ onClose }: BookDemoModalProps) {
+	const [demoTime, setDemoTime] = useState<DemoTime>('this-week');
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, onClose]);
+	const [message, setMessage] = useState('');
 
-  if (!open) return null;
+	// useEffect(() => {
+	// 	document.body.style.overflow = 'hidden';
 
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="book-demo-title"
-      onClick={onClose}
-    >
-      <div
-        className="relative flex max-h-[95dvh] w-full max-w-[1024px] flex-col overflow-hidden rounded-t-[10px] bg-white shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)] sm:max-h-[95vh] sm:rounded-[10px]"
-        onClick={(e) => e.stopPropagation()}
-        data-node-id="84:1686"
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute right-4 top-4 z-20 flex size-8 items-center justify-center rounded-full text-xl text-grey-800 hover:bg-black/5"
-          aria-label="Close"
-        >
-          ×
-        </button>
+	// 	return () => {
+	// 		document.body.style.overflow = 'auto';
+	// 	};
+	// }, []);
 
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:min-h-[724px] lg:flex-row lg:overflow-hidden">
-          {/* Left panel — Figma x:0–360 */}
-          <aside className="relative w-full shrink-0 border-b border-black/10 px-5 pb-6 pt-12 sm:px-8 sm:pt-10 lg:w-[360px] lg:border-b-0 lg:border-r lg:px-12 lg:pb-8">
-            <img src="/images/logo.svg" alt="Hayy.AI" className="h-8 w-auto" width={129} height={32} />
+	return (
+		<div
+			className="fixed inset-0 z-[999] flex items-end justify-center bg-black/50 backdrop-blur-sm sm:items-center"
+			onClick={onClose}
+		>
+			<div
+				onClick={(e) => e.stopPropagation()}
+				className="relative flex h-[100dvh] w-full flex-col overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:h-auto sm:max-h-[92vh] sm:max-w-6xl sm:rounded-3xl"
+			>
+				{/* Close */}
+				<button
+					onClick={onClose}
+					className="absolute right-5 top-2 z-50 flex  items-center justify-center rounded-full bg-black/5 p-2 text-xl transition hover:bg-black/10 cursor-pointer "
+				>
+					<X size={15} />
+				</button>
 
-            <h2
-              id="book-demo-title"
-              className="mt-6 text-[24px] font-semibold leading-tight text-grey-800"
-              data-node-id="84:1688"
-            >
-              Book a Demo
-              <br />
-              <span className="text-secondary">with Hayy.AI</span>
-            </h2>
+				<div className="grid h-full overflow-hidden lg:grid-cols-[1fr_2fr]">
+					{/* LEFT PANEL */}
+					<div className="overflow-y-auto border-b border-black/10 bg-neutral-50 px-6 py-8 sm:px-10 lg:border-b-0 lg:border-r ">
+						<div className="w-[128px] h-[32px] relative">
+							<Image
+								src="/images/logo.svg"
+								alt="Hayy AI"
+								fill
+								priority
+								className="object-cover"
+							/>
+						</div>
 
-            <p className="mt-3 max-w-[290px] text-[16px] leading-normal text-grey-700" data-node-id="84:1689">
-              Tell us about your development company, and our team will contact you to schedule a
-              demo.
-            </p>
+						<h2 className="mt-3 text-[24px] font-bold leading-[100%] text-neutral-900">
+							Book a Demo with
+							<span className="block text-secondary">Hayy.AI</span>
+						</h2>
 
-            <img
-              src="/images/demo-schedule.svg"
-              alt=""
-              width={200}
-              height={201}
-              className="mx-auto mt-8 h-[201px] w-[200px] object-contain"
-              data-node-id="84:2277"
-            />
+						<p className="mt-2 max-w-sm text-base tracking-normal  text-neutral-600">
+							Share your company details. We’ll book your{' '}
+							<span className="text-secondary">Demo</span>.
+						</p>
 
-            <ul className="mt-8 space-y-[12px]" data-node-id="87:2312">
-              {demoFormBullets.map((item) => (
-                <li key={item.text} className="flex items-center gap-3">
-                  <img src={item.icon} alt="" width={33} height={33} className="shrink-0" />
-                  <span className="text-[16px] text-grey-800">{item.text}</span>
-                </li>
-              ))}
-            </ul>
+						<div className="mt-4 flex justify-center">
+							<Image
+								src="/images/calender.svg"
+								alt="Schedule demo"
+								width={199}
+								height={210}
+								className="h-auto"
+							/>
+						</div>
 
-            <p className="mt-10 text-[16px] text-grey-800" data-node-id="87:2315">
-              Already registered?
-            </p>
-            <a
-              href={DEVELOPER_LOGIN_URL}
-              className="mt-1 inline-block text-[16px] font-medium text-secondary hover:underline"
-              data-node-id="87:2317"
-            >
-              Sign in to list your projects
-            </a>
-          </aside>
+						<ul className="mt-10 space-y-4">
+							{demoFormBullets.map((item) => (
+								<li key={item.text} className="flex items-center gap-2">
+									<Image
+										src={item.icon}
+										alt="bullet-icon"
+										width={18}
+										height={18}
+									/>
 
-          {/* Right panel — form */}
-          <form
-            className="relative flex flex-1 flex-col px-5 pb-6 pt-8 sm:px-8 sm:pb-8 sm:pt-10 lg:pl-10"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onClose();
-            }}
-          >
-            <div className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
-              <Field label="Company Name *" placeholder="Enter your development company name" />
-              <Field label="Contact Person Name *" placeholder="Enter your full name" />
-              <Field label="Work Email *" placeholder="Enter your business email" type="email" />
-              <PhoneField />
-              <Field label="Company Website *" placeholder="https://yourcompany.com" />
-              <Field label="Country / Region *" placeholder="Select your country / region" />
-              <Field label="Project Type *" placeholder="Select project type" />
-              <Field label="Number of Projects *" placeholder="Select number of projects" />
-            </div>
+									<span className="text-sm font-semibold text-[#303044]">
+										{item.text}
+									</span>
+								</li>
+							))}
+						</ul>
 
-            <div className="mt-5" data-node-id="92:302">
-              <p className={labelClass}>Preferred Demo Time *</p>
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-[17px]" data-node-id="92:301">
-                {(
-                  [
-                    ["this-week", "This Week"],
-                    ["next-week", "Next Week"],
-                    ["suggest", "Suggest a time"],
-                  ] as const
-                ).map(([value, label]) => (
-                  <DemoTimeOption
-                    key={value}
-                    label={label}
-                    selected={demoTime === value}
-                    onSelect={() => setDemoTime(value)}
-                  />
-                ))}
-              </div>
-            </div>
+						<div className="mt-4 border-t border-black/10 pt-4">
+							<p className="text-sm text-neutral-500">Already registered?</p>
 
-            <div className="mt-5" data-node-id="92:303">
-              <label className={labelClass} htmlFor="demo-message">
-                Message
-              </label>
-              <textarea
-                id="demo-message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value.slice(0, 500))}
-                placeholder="Tell us what you would like to discuss......."
-                className="h-[82px] w-full resize-none rounded-[5px] border border-black/20 bg-white px-2.5 py-2.5 text-[14px] text-grey-800 placeholder:text-grey-700 outline-none focus:border-secondary"
-                data-node-id="92:305"
-              />
-              <p className="mt-1 text-right text-[12px] text-grey-700">{message.length}/500</p>
-            </div>
+							<Link
+								href={DEVELOPER_LOGIN_URL}
+								className="mt-1 inline-flex text-sm font-medium text-secondary "
+							>
+								Sign in to list your projects
+							</Link>
+						</div>
+					</div>
 
-            <div className="mt-auto flex flex-col items-stretch justify-between gap-4 pt-8 sm:flex-row sm:items-center">
-              <p
-                className="flex max-w-[320px] items-start gap-2 text-[14px] leading-snug text-grey-700"
-                data-node-id="101:270"
-              >
-                <img
-                  src="/images/icons/lock-outline.svg"
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="mt-0.5 shrink-0"
-                  data-node-id="101:271"
-                />
-                Your information is safe with us. We respect your privacy.
-              </p>
+					{/* RIGHT PANEL */}
+					<form
+						className="flex h-full min-h-0 flex-col overflow-hidden px-6 py-6 sm:px-8 sm:py-6"
+						onSubmit={(e) => {
+							e.preventDefault();
+							onClose();
+						}}
+					>
+						{/* Scrollable Content */}
+						<div className="flex-1 overflow-y-auto pr-2">
+							<div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+								<Field
+									label="Company Name"
+									placeholder="Your company name"
+									required
+								/>
 
-              <ButtonPrimary type="submit" className="w-full sm:ml-auto sm:w-auto" data-node-id="101:275">
-                <span data-node-id="92:408">Request Demo</span>
-                <img
-                  src="/images/icons/arrow-white.svg"
-                  alt=""
-                  width={15}
-                  height={15}
-                  className="shrink-0"
-                  data-node-id="101:273"
-                />
-              </ButtonPrimary>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+								<Field
+									label="Contact Person"
+									placeholder="Full name"
+									required
+								/>
+
+								<Field
+									label="Work Email"
+									type="email"
+									placeholder="you@company.com"
+									required
+								/>
+
+								<PhoneField />
+
+								<Field
+									label="Company Website"
+									placeholder="https://yourcompany.com"
+									required
+								/>
+
+								<Field
+									label="Country / Region"
+									placeholder="Select country"
+									required
+								/>
+
+								<Field
+									label="Project Type"
+									placeholder="Select project type"
+									required
+								/>
+
+								<Field
+									label="Number of Projects"
+									placeholder="Select range"
+									required
+								/>
+							</div>
+
+							{/* Demo Time */}
+							<div className="mt-5">
+								<p className={labelClass}>
+									Preferred Demo Time <span className="text-red-500">*</span>
+								</p>
+
+								<div className="mt-2 flex flex-wrap gap-2">
+									{(
+										[
+											['this-week', 'This Week'],
+											['next-week', 'Next Week'],
+											['suggest', 'Suggest Time'],
+										] as const
+									).map(([value, label]) => (
+										<DemoTimeOption
+											key={value}
+											label={label}
+											selected={demoTime === value}
+											onSelect={() => setDemoTime(value)}
+										/>
+									))}
+								</div>
+							</div>
+
+							{/* Message */}
+							<div className="mt-5">
+								<label htmlFor="message" className={labelClass}>
+									Message
+								</label>
+
+								<textarea
+									id="message"
+									value={message}
+									onChange={(e) => setMessage(e.target.value.slice(0, 500))}
+									placeholder="Tell us what you'd like to discuss..."
+									className="min-h-[90px] w-full rounded-xl border border-black/15 px-4 py-3 text-sm outline-none transition-all placeholder:text-neutral-400 focus:border-secondary focus:ring-4 focus:ring-secondary/10"
+								/>
+
+								<p className="mt-1 text-right text-xs text-neutral-500">
+									{message.length}/500
+								</p>
+							</div>
+						</div>
+
+						{/* Footer */}
+						<div className="mt-5 flex shrink-0 flex-col gap-4 border-t border-black/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+							<div className="flex items-start gap-3">
+								<Image
+									src="/images/icons/lock-outline.svg"
+									alt=""
+									width={20}
+									height={20}
+								/>
+
+								<p className="max-w-sm text-xs leading-5 text-neutral-500">
+									Your information is encrypted and securely stored.
+								</p>
+							</div>
+
+							<ButtonPrimary type="submit" className="h-11 rounded-xl px-6  ">
+								<span className="text-gray-800">Request Demo</span>
+								<ArrowRight size={18} className='text-gray-800'/>
+							</ButtonPrimary>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 function Field({
-  label,
-  placeholder,
-  type = "text",
+	label,
+	placeholder,
+	type = 'text',
+  required
 }: {
-  label: string;
-  placeholder: string;
-  type?: string;
+	label: string;
+	placeholder: string;
+	type?: string
+  required?: boolean
 }) {
-  return (
-    <div className="min-h-[70px]">
-      <label className={labelClass}>{label}</label>
-      <input type={type} placeholder={placeholder} className={inputClass} />
-    </div>
-  );
+	return (
+		<div>
+			<label className={labelClass}>{label} {required && <span className='text-red-500'>*</span>}</label>
+			<input type={type} placeholder={placeholder} className={inputClass} />
+		</div>
+	);
 }
 
 function PhoneField() {
-  return (
-    <div className="min-h-[70px]" data-node-id="99:269">
-      <label className={labelClass}>Phone Number / WhatsApp *</label>
-      <div className="flex gap-1.5" data-node-id="99:268">
-        <div
-          className="flex h-10 w-[81px] shrink-0 items-center gap-2 rounded-[5px] border border-black/20 bg-white px-2.5"
-          data-node-id="99:263"
-        >
-          <span className="text-lg leading-none" aria-hidden>
-            🇦🇪
-          </span>
-          <span className="text-[14px] text-grey-800">+971</span>
-        </div>
-        <input
-          type="tel"
-          placeholder="Enter your contact number"
-          className={`${inputClass} flex-1`}
-          data-node-id="99:266"
-        />
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<label className={labelClass}>Phone Number / WhatsApp *</label>
+
+			<div className="flex gap-3">
+				<div className="flex h-11 items-center justify-center gap-2 rounded-lg border border-black/15 px-4">
+					<Image src="/images/uae.svg" alt='uae-flag' width={18} height={18} />
+					<span className="text-sm">+971</span>
+				</div>
+
+				<input
+					type="tel"
+					placeholder="Enter phone number"
+					className={inputClass}
+				/>
+			</div>
+		</div>
+	);
 }
 
-/** Preferred demo time pill — Figma 92:261, 170×38 */
 function DemoTimeOption({
-  label,
-  selected,
-  onSelect,
+	label,
+	selected,
+	onSelect,
 }: {
-  label: string;
-  selected: boolean;
-  onSelect: () => void;
+	label: string;
+	selected: boolean;
+	onSelect: () => void;
 }) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`flex h-[38px] w-full min-w-0 flex-1 items-center justify-center gap-2 rounded-[5px] border border-black/20 bg-white px-3 shadow-[0px_0px_2px_rgba(0,0,0,0.25)] transition-colors sm:w-[170px] sm:flex-none ${
-        selected ? "border-secondary ring-1 ring-secondary/30" : ""
-      }`}
-    >
-      <span
-        className={`size-3.5 shrink-0 rounded-full border-2 ${
-          selected ? "border-secondary bg-secondary" : "border-grey-700 bg-white"
-        }`}
-        aria-hidden
-      />
-      <img src="/images/icons/calendar.svg" alt="" width={16} height={16} className="shrink-0" />
-      <span className="text-[14px] text-grey-800">{label}</span>
-    </button>
-  );
+	return (
+		<button
+			type="button"
+			onClick={onSelect}
+			className={`flex h-11 items-center gap-3 rounded-xl border px-5 text-sm transition-all ${
+				selected
+					? 'border-secondary bg-secondary/5 ring-4 ring-secondary/10'
+					: 'border-black/10 hover:border-black/20'
+			}`}
+		>
+			<div
+				className={`size-3 rounded-full border-2 ${
+					selected ? 'border-secondary bg-secondary' : 'border-neutral-400'
+				}`}
+			/>
+
+			<span>{label}</span>
+		</button>
+	);
 }
