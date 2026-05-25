@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="picon:shield" clip-path="url(#clip0_0_168)">
+<path id="Vector" d="M22.5 22.5V39.375C30 39.375 35.625 33.75 39.375 22.5M22.5 22.5V5.625L5.625 11.25V22.5M22.5 0L45 11.25C45 56.25 0 56.25 0 11.25" fill="var(--fill-0, #22B1B7)"/>
+</g>
+<defs>
+<clipPath id="clip0_0_168">
+<rect width="45" height="45" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="devicon:facebook" clip-path="url(#clip0_0_38)">
+<path id="Vector" d="M14.5812 0.60375H1.42C0.969198 0.60375 0.60375 0.969198 0.60375 1.42V14.5812C0.60375 15.0321 0.969198 15.3975 1.42 15.3975H14.5812C15.0321 15.3975 15.3975 15.0321 15.3975 14.5812V1.42C15.3975 0.969198 15.0321 0.60375 14.5812 0.60375Z" fill="var(--fill-0, #3D5A98)"/>
+<path id="Vector_2" d="M10.81 15.3962V9.6675H12.7325L13.02 7.435H10.81V6.01C10.81 5.36375 10.99 4.9225 11.9163 4.9225H13.0988V2.9225C12.5261 2.86293 11.9507 2.83456 11.375 2.8375C9.6725 2.8375 8.5 3.875 8.5 5.78875V7.435H6.5775V9.6675H8.5V15.3962H10.81Z" fill="var(--fill-0, white)"/>
+</g>
+<defs>
+<clipPath id="clip0_0_38">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
