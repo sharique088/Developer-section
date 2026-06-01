@@ -78,3 +78,28 @@ export const demoFormBullets = [
   { text: "Global Reach", icon: "/images/icons/demo-bullet-globe.svg" },
   { text: "From Inquiry to Closing", icon: "/images/icons/people.svg" },
 ] as const;
+
+
+
+export const devHubPoint = [
+  {
+    id: 0,
+    icon: '/images/dekstop.svg',
+    descp: 'Real-time Dashboard & Reporting'
+  },
+  {
+    id: 1,
+    icon: '/images/bi_people.svg',
+    descp: 'Agency & lead collaboration'
+  },
+  {
+    id: 2,
+    icon: '/images/bell.svg',
+    descp: 'Automated updates & notifications'
+  },
+  {
+    id: 3,
+    icon: '/images/lock.svg',
+    descp: 'Role-based access for your team'
+  },
+] as const;
